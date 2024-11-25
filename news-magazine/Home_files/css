@@ -8,8 +8,15 @@
 }
 @font-face {
   font-family: 'aljazirafont';
-  src: url('../fonts/arfonts-al-jazeera-arabic-regular.ttf') format('woff2'),
+  src: url('../fonts/arfonts-al-jazeera-arabic-regular.ttf') format('ttf'),
        url('../fonts/arfonts-al-jazeera-arabic-regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'naskh';
+  src: url('../fonts/UthmanTN_v2-0.ttf') format('ttf'),
+       url('../fonts/UthmanTN_v2-0.ttf') format('ttf');
   font-weight: normal;
   font-style: normal;
 }
