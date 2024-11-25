@@ -1,0 +1,252 @@
+if(!window.getComputedStyle) {
+  window.getComputedStyle = function(el) {
+    "use strict";
+    this.el = el;
+    this.getPropertyValue = function(prop) {
+      var re = /(\-([a-z]){1})/g;
+      if(prop === "float") {
+        prop = "styleFloat";
+      }
+      if(re.test(prop)) {
+        prop = prop.replace(re, function() {
+          return arguments[2].toUpperCase();
+        });
+      }
+      return el.currentStyle[prop] ? el.currentStyle[prop] : null;
+    };
+    return this;
+  };
+}
+jQuery(document).ready(function($) {
+  "use strict";
+  var responsive_viewport = $(window).width();
+  if(responsive_viewport <= 780) {
+    $(".comment img[data-gravatar]").each(function() {
+      $(this).attr("src", $(this).attr("data-gravatar"));
+    });
+    
+    var $container_5col_blog = $(".blog-5");
+    $container_5col_blog.isotope({itemSelector:".element", masonry:{columnWidth:155}});
+    
+  }else {
+  	if( $(".blog-5.small").length > 0){
+  		var $container_5col_blog = $(".blog-5.small");
+  		$container_5col_blog.isotope({itemSelector:".element", masonry:{columnWidth:210}});	
+  	}else {
+  		var $container_5col_blog = $(".blog-5");
+  		$container_5col_blog.isotope({itemSelector:".element", masonry:{columnWidth:235}});
+  	}
+  	
+  }
+  
+  $(".nav_bar #topnav li").each(function() {
+    if($(this).children("ul.sub-menu").length > 0) {
+      $(this).children("a:first").append('<span class="more icon-chevron-left"></span>');
+    }
+  });
+  
+  $("#social_icons li.search a").click(function(e) {
+    if($('#social_icons li.search').hasClass('active')){
+    	$('#social_icons li.search').removeClass('active');
+    	
+    }else{
+    	$('#social_icons li.search').addClass('active');
+    }
+    e.preventDefault();
+  });
+  
+  $(".top-wide-nav #topnav li").each(function() {
+    if($(this).children("ul.sub-menu").length > 0) {
+      $(this).children("a:first").append('<span class="more icon-chevron-down"></span>');
+    }
+  });
+  
+  $("a.comment-reply-link").addClass("icon-reply");
+  var $tabs = $(".tabs").children("li"), $tabdata = $(".tabdata");
+  $tabdata.hide();
+  $tabs.first().addClass("active").show();
+  $tabdata.first().show();
+  $tabs.on("click", function(e) {
+    var $this = $(this);
+    $tabs.removeClass("active");
+    $this.addClass("active");
+    $tabdata.hide();
+    $($(this).find("a").attr("href")).fadeIn();
+    e.preventDefault();
+  });
+  $(".newsticker").fadeIn();
+  if($(".rtl .newsticker").length > 0) {
+    $(".rtl .newsticker").webTicker({direction:-1});
+  }else {
+    $(".newsticker").webTicker();
+  }
+  $('li.bpn-prev-link:empty').css('display','none');
+  $('li.bpn-next-link:empty').css('display','none');
+  $("#gotop").click(function() {
+    $("html, body").animate({scrollTop:0}, "200");
+  });
+  $(".side_show").click(function() {
+    if($(this).hasClass('active')){
+    	$(this).removeClass('active');
+    	$('.span2.nav_bar').removeClass('side_hidden_show');
+    	$('#content.span10').removeClass('content_active');
+    	
+    }else{
+    	$(this).addClass('active');
+    	$('.span2.nav_bar').addClass('side_hidden_show');
+    	$('#content.span10').addClass('content_active');
+    }
+    
+  });
+  $(".custom_tabs").tabs(".custom_tabs_content", {effect:"fade"});
+  $(".accordion").tabs(".accordion div.pane", {tabs:"h2", effect:"slide", initialIndex:null});
+  $(".custom_tabs2").tabs(".custom_tabs2_content", {tabs:"li", effect:"fade"});
+  $(".fancybox").fancybox({wrapCSS:"fancybox-custom", closeClick:true, helpers:{title:{type:"inside"}, overlay:{css:{"background-color":"#eee"}}}});
+  var $container = $("#items_container");
+  $container.isotope({itemSelector:".element"});
+  var $container_3col_blog = $("#blog-3col");
+  $container_3col_blog.isotope({itemSelector:".element", masonry:{columnWidth:313}});
+  
+  $(".toggle h3 a").click(function(e) {
+    e.preventDefault();
+    $(this).parents("h3").toggleClass("active").next("div").slideToggle("fast");
+  });
+  $(".toggle h5").toggleClass("active");
+  $(".toggle div").css("display", "none");
+  $(".features").flexslider({animation:"slide", slideshowSpeed:7E3, controlNav:true, prevText:'<span class="icon-angle-left"></span>', nextText:'<span class="icon-angle-right"></span>', manualControls:"ul.nav-ul-buttons li a", start:function(slider) {
+    var $next_slide = slider.slides.eq(slider.animatingTo);
+    $next_slide.find(".width_50_right").addClass("show animated fadeInRight");
+    $next_slide.find("a.author").addClass("show animated animate2 bounceInDown");
+    $next_slide.find(".slide_rest").addClass("show animated animate3 fadeIn");
+  }, before:function(slider) {
+    var $next_slide = slider.slides.eq(slider.animatingTo);
+    $next_slide.find(".width_50_right").removeClass("show animated fadeInRight");
+    $next_slide.find("a.author").removeClass("show animated animate2 bounceInDown");
+    $next_slide.find(".slide_rest").removeClass("show animated animate3 fadeIn");
+  }, after:function(slider) {
+    var $next_slide = slider.slides.eq(slider.animatingTo);
+    $next_slide.find(".width_50_right").addClass("show animated fadeInRight");
+    $next_slide.find("a.author").addClass("show animated animate2 bounceInDown");
+    $next_slide.find(".slide_rest").addClass("show animated animate3 fadeIn");
+  }});
+  $(".4cols_anmi").flexslider({animation:"slide", animationLoop:false, selector:".slides_4col > li", itemWidth:154, itemMargin:5, controlsContainer:".shortcode_4col_posts", controlNav:false, directionNav:true, prevText:'<span class="icon-angle-left"></span>', nextText:'<span class="icon-angle-right"></span>', move:1, slideshow:false});
+  $(".3cols_anmi").flexslider({animation:"slide", animationLoop:false, selector:".slides_3col > li", itemWidth:200, itemMargin:8, controlsContainer:".shortcode_3col_posts", controlNav:false, directionNav:true, prevText:'<span class="icon-angle-left"></span>', nextText:'<span class="icon-angle-right"></span>', move:1, slideshow:false});
+  $(".5cols_anmi_fullwidth").flexslider({animation:"slide", animationLoop:false, selector:".slides_5col > li", itemWidth:186, itemMargin:10, controlsContainer:".shortcode_5col_posts", controlNav:false, directionNav:true, prevText:'<span class="icon-angle-left"></span>', nextText:'<span class="icon-angle-right"></span>', move:1, slideshow:false});
+  $(".2cols_anmi").flexslider({animation:"slide", animationLoop:false, selector:".slides_2col > li", itemWidth:460, itemMargin:20, controlsContainer:".shortcode_2col_posts", controlNav:false, directionNav:true, prevText:'<span class="icon-angle-left"></span>', nextText:'<span class="icon-angle-right"></span>', move:1, slideshow:false});
+  $("[title]").tipTip();
+  $("#contact_button_send").click(function(e) {
+    if($("#email").val() && $("#name").val() && $("#message").val()) {
+      $("#email").removeClass("contact_error");
+      $("#name").removeClass("contact_error");
+      $("#message").removeClass("contact_error");
+      var emailReg = /^([\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4})?$/;
+      if(!emailReg.test($("#email").val())) {
+        $("#email").addClass("contact_error");
+      }else {
+        $.ajax({type:"POST", data:jQuery("#contact-form").serialize() + "&action=contact_send", url:$("#website_dir").val() + "/wp-admin/admin-ajax.php", success:function(data) {
+          if(data === "done") {
+            $(".message_contact_true").fadeIn();
+          }else {
+            $(".message_contact_false").fadeIn();
+          }
+        }});
+      }
+    }else {
+      if(!$("#email").val()) {
+        $("#email").addClass("contact_error");
+      }else {
+        $("#email").removeClass("contact_error");
+      }
+      if(!$("#name").val()) {
+        $("#name").addClass("contact_error");
+      }else {
+        $("#name").removeClass("contact_error");
+      }
+      if(!$("#message").val()) {
+        $("#message").addClass("contact_error");
+      }else {
+        $("#message").removeClass("contact_error");
+      }
+    }
+    e.preventDefault();
+  });
+  
+  $('a.roll-link').each(function () {
+  	$(this).html('<span data-title="'+$(this).text()+'">'+$(this).text()+'</span>' );
+  });
+  $("#preview_show").click(function() {
+    if($("#preview").hasClass("hide2")) {
+      $("#preview").removeClass("hide2");
+      $("#preview").addClass("show2");
+    }else {
+      $("#preview").removeClass("show2");
+      $("#preview").addClass("hide2");
+    }
+  });
+  (function($) {
+    $("select.resp_navigation").bind("change", function() {
+      if($(this).val() !== "" && $(this).val() !== document.location.href) {
+        document.location.href = $(this).val();
+      }
+    });
+    $('select[name="resp_navigation"]').bind("change", function() {
+      document.location.href = "http://" + document.location.host + "/?page_id=" + $(this).val();
+    });
+  })(jQuery);
+});
+(function(w) {
+  "use strict";
+  if(!(/iPhone|iPad|iPod/.test(navigator.platform))){
+     if( navigator.userAgent.indexOf("AppleWebKit") > -1) {
+    return;
+      }
+  }
+  var doc = w.document;
+  if(!doc.querySelector) {
+    return;
+  }
+  var meta = doc.querySelector("meta[name=viewport]");
+  var initialContent = meta && meta.getAttribute("content");
+  var disabledZoom = initialContent + ",maximum-scale=1";
+  var enabledZoom = initialContent + ",maximum-scale=10", enabled = true, x, y, z, aig;
+  if(!meta) {
+    return;
+  }
+  function restoreZoom() {
+    meta.setAttribute("content", enabledZoom);
+    enabled = true;
+  }
+  function disableZoom() {
+    meta.setAttribute("content", disabledZoom);
+    enabled = false;
+  }
+  function checkTilt(e) {
+    aig = e.accelerationIncludingGravity;
+    x = Math.abs(aig.x);
+    y = Math.abs(aig.y);
+    z = Math.abs(aig.z);
+    if(!w.orientation && (x > 7 || (z > 6 && y < 8 || z < 8 && y > 6) && x > 5)) {
+      if(enabled) {
+        disableZoom();
+      }
+    }else {
+      if(!enabled) {
+        restoreZoom();
+      }
+    }
+  }
+  w.addEventListener("orientationchange", restoreZoom, false);
+  w.addEventListener("devicemotion", checkTilt, false);
+})(this);
+jQuery(document).ready(function() {
+  "use strict";
+  var inputs = document.getElementsByTagName("input");
+  for(var i = 0;i < inputs.length;i++) {
+    if(inputs[i].getAttribute("type") === "text") {
+      inputs[i].setAttribute("x-webkit-speech");
+    }
+    if(inputs[i].getAttribute("type") === "email") {
+      inputs[i].setAttribute("x-webkit-speech");
+    }
+  }
+});

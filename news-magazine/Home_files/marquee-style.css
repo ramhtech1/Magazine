@@ -1,0 +1,82 @@
+
+
+.presenter{
+	position: relative;
+	background: url('../img/tv-news.jpg') no-repeat;
+	background-size: 1000px 562px;
+	width: 1000px;
+	height: 562px;
+	margin: 0 auto;
+}
+
+
+
+
+/* Not used in this example
+.fixed {
+	height:35px;
+	background-color: red;
+	width: 290px;
+	z-index: 100;
+	position: absolute;
+}
+*/
+
+#panel{
+	bottom: 0px;
+	position: relative;
+}
+
+
+.content {
+  margin: 0;
+}
+
+/*.content li {
+      color: #000;
+      height: 42px;
+      position: absolute; 
+      list-style-type: none;
+      line-height: 43px;
+      font-size: 16px;
+}
+
+.marquee .content {
+    display: flex;
+}*/
+.marquee .content li{
+	color: #000;
+      height: 42px;
+      list-style-type: none;
+      line-height: 43px;
+      font-size: 16px;
+}
+.marquee .content li i{
+	margin:0px 10px;
+	color: #b0206489;
+}
+.marquee .content  a{
+	color: #000;
+}
+
+
+.marquee  {
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 200px;
+  overflow-x: hidden;
+}
+
+.marquee .content {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 32s linear infinite;
+  display: flex;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
